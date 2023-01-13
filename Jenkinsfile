@@ -29,7 +29,7 @@ pipeline {
         stage('No Packer Build') {
             when {
                     expression {
-                        env.PACKER_ACTION == 'YES'
+                        env.PACKER_ACTION == 'NO'
                     }
             }
             steps {
