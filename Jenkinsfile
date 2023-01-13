@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PACKER_ACTION = 'NO'
-        TERRAFORM_ACTION = 'DELETE'
+        TERRAFORM_ACTION = 'DESTROY'
         AMI_ACTION = 'DONT-DELETE'
     }
 
@@ -76,7 +76,7 @@ pipeline {
         stage('Terraform Destroy') {
             when {
             expression {
-                env.TERRAFORM_ACTION != 'DEPLOY'
+                env.TERRAFORM_ACTION == 'DESTROY'
                  }
             }
             steps {
