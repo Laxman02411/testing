@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Perform Packer Build') {
             when {
-             branch 'uat'
+             branch 'stag'
              expression {
                         env.PACKER_ACTION == 'YES'
                     }
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('No Packer Build') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                         env.PACKER_ACTION != 'YES'
                     }
@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Terraform Plan') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
@@ -56,7 +56,7 @@ pipeline {
         }
         stage('Terraform Apply') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
@@ -68,7 +68,7 @@ pipeline {
         }
         stage('Terraform State Show') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
@@ -80,7 +80,7 @@ pipeline {
         }
         stage('Terraform Destroy') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                 env.TERRAFORM_ACTION == 'DESTROY'
                  }
@@ -92,7 +92,7 @@ pipeline {
         }
         stage('Delete AMI') {
              when {
-             branch 'uat'
+             branch 'stag'
              expression {
                 env.AMI_ACTION == 'DELETE'
                  }
