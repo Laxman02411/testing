@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PACKER_ACTION = 'NO'
-        TERRAFORM_ACTION = 'YES'
+        TERRAFORM_ACTION = 'DEPLOY'
         AMI_ACTION = 'DONT-DELETE'
     }
 
@@ -41,9 +41,8 @@ pipeline {
         }
         stage('Terraform Plan') {
             when {
-			branch 'master'
             expression {
-                env.TERRAFORM_ACTION = 'YES'
+                env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
             steps {
@@ -54,9 +53,8 @@ pipeline {
         }
         stage('Terraform Apply') {
             when {
-			branch 'master'
             expression {
-                env.TERRAFORM_ACTION = 'YES'
+                env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
             steps {
@@ -66,9 +64,8 @@ pipeline {
         }
         stage('Terraform State Show') {
             when {
-			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'YES'
+                env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
             steps {
@@ -80,7 +77,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION != 'NO'
+                env.TERRAFORM_ACTION != 'DEPLOY'
                  }
             }
             steps {
@@ -90,7 +87,6 @@ pipeline {
         }
         stage('Delete AMI') {
             when {
-			branch 'master'
             expression {
                 env.AMI_ACTION == 'DELETE'
                  }
