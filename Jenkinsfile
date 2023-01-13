@@ -43,7 +43,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'YES'
+                env.TERRAFORM_ACTION = 'YES'
                  }
             }
             steps {
@@ -56,7 +56,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'YES'
+                env.TERRAFORM_ACTION = 'YES'
                  }
             }
             steps {
