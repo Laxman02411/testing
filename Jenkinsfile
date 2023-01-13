@@ -82,7 +82,7 @@ pipeline {
              when {
              branch 'master'
              expression {
-                env.TERRAFORM_ACTION == 'DESTROY'
+                env.TERRAFORM_ACTION != 'DESTROY'
                  }
             }
             steps {
