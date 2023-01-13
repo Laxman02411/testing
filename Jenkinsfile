@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         PACKER_ACTION = 'NO'
-        TERRAFORM_ACTION = 'DEPLOY'
-        AMI_ACTION = 'DONT-DELETE'
+        TERRAFORM_ACTION = 'DESTROY'
+        AMI_ACTION = 'DELETE'
     }
 
     stages {
@@ -29,21 +29,21 @@ pipeline {
         stage('No Packer Build') {
             when {
                     expression {
-                        env.PACKER_ACTION == 'NO'
+                        env.PACKER_ACTION != 'YES'
                     }
             }
             steps {
                     sh 'pwd'
                     sh 'ls -al'
                     sh 'echo "" >> variables.tf'
-                    sh "echo variable \\\"imagename\\\" { default = \\\"ami-0319a95bbfd9a3a26\\\" } >> variables.tf"
+                    sh "echo variable \\\"imagename\\\" { default = \\\"ami-086046ff44a256ae6\\\" } >> variables.tf"
             }
         }
         stage('Terraform Plan') {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION != 'DEPLOY'
+                env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
             steps {
@@ -56,7 +56,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION != 'DEPLOY'
+                env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
             steps {
@@ -97,7 +97,7 @@ pipeline {
             }
             steps {
                 script {
-                        def AMIID = 'ami-0319a95bbfd9a3a26'
+                        def AMIID = 'ami-086046ff44a256ae6'
                         sh "aws ec2 deregister-image --image-id $AMIID"
                 }
             }
