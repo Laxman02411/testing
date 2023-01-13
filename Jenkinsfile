@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         PACKER_ACTION = 'YES'
-        TERRAFORM_ACTION = 'DEPLOY'
-        AMI_ACTION = 'DELETE'
+        TERRAFORM_ACTION = 'YES'
+        AMI_ACTION = 'DONT-DELETE'
     }
 
     stages {
@@ -43,7 +43,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'DEPLOY'
+                env.TERRAFORM_ACTION == 'YES'
                  }
             }
             steps {
@@ -56,7 +56,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'DEPLOY'
+                env.TERRAFORM_ACTION == 'YES'
                  }
             }
             steps {
@@ -68,7 +68,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION == 'DEPLOY'
+                env.TERRAFORM_ACTION == 'YES'
                  }
             }
             steps {
@@ -80,7 +80,7 @@ pipeline {
             when {
 			branch 'master'
             expression {
-                env.TERRAFORM_ACTION != 'DEPLOY'
+                env.TERRAFORM_ACTION != 'NO'
                  }
             }
             steps {
