@@ -13,7 +13,7 @@ terraform {
   }
     backend "s3" {
     bucket = "awssunilbucket"
-    key    = "prod-jenkins.tfstate"
+    key    = "uat-jenkins.tfstate"
     region = "us-east-1"
   }
 }
