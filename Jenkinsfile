@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('Perform Packer Build') {
             when {
-                    expression {
+             branch 'master'
+             expression {
                         env.PACKER_ACTION == 'YES'
                     }
             }
@@ -27,8 +28,9 @@ pipeline {
             }
         }
         stage('No Packer Build') {
-            when {
-                    expression {
+             when {
+             branch 'master'
+             expression {{
                         env.PACKER_ACTION != 'YES'
                     }
             }
@@ -40,8 +42,9 @@ pipeline {
             }
         }
         stage('Terraform Plan') {
-            when {
-            expression {
+             when {
+             branch 'master'
+             expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
@@ -52,8 +55,9 @@ pipeline {
             }
         }
         stage('Terraform Apply') {
-            when {
-            expression {
+             when {
+             branch 'master'
+             expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
@@ -63,8 +67,9 @@ pipeline {
             }
         }
         stage('Terraform State Show') {
-            when {
-            expression {
+             when {
+             branch 'master'
+             expression {
                 env.TERRAFORM_ACTION == 'DEPLOY'
                  }
             }
@@ -74,8 +79,9 @@ pipeline {
             }
         }
         stage('Terraform Destroy') {
-            when {
-            expression {
+             when {
+             branch 'master'
+             expression {
                 env.TERRAFORM_ACTION == 'DESTROY'
                  }
             }
@@ -85,8 +91,9 @@ pipeline {
             }
         }
         stage('Delete AMI') {
-            when {
-            expression {
+             when {
+             branch 'master'
+             expression {
                 env.AMI_ACTION == 'DELETE'
                  }
             }
