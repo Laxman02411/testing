@@ -30,7 +30,7 @@ pipeline {
         stage('No Packer Build') {
              when {
              branch 'dev'
-             expression {{
+             expression {
                         env.PACKER_ACTION != 'YES'
                     }
             }
