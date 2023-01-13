@@ -75,7 +75,6 @@ pipeline {
         }
         stage('Terraform Destroy') {
             when {
-			branch 'master'
             expression {
                 env.TERRAFORM_ACTION != 'DEPLOY'
                  }
